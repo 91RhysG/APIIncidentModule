@@ -1,14 +1,25 @@
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { response } = require("express");
 
+require("dotenv").config();
+
+const sql = require("msnodesqlv8");
+
+const connectionString =
+  "server=.;Database=IncidentModuleDatabase;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
+const query = "SELECT * FROM Person";
+
+sql.query(connectionString, query, (err, rows) => {
+  console.log(rows);
+});
 const PORT = 8000;
 
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/src/templates/index.html");
+  console.log("Index reached!");
 });
 
 app.listen(PORT, () => {
